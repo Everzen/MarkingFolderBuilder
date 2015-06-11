@@ -1,6 +1,15 @@
+##################################################################################################################################
+##Developer: Richard Jones
+##Contact:   3dframework@gmail.com
+##
+##Tool: Marking Folder Builder
+##      - Tool to add folder structures that match up to students on a module
+##      - Look to add XML data stripped straight from course sheets
+##
+##      -Widgets: For subclassing Pyside Widgets
+########################################################################################################################################
 
-#Source code for some common Maya/PyQt functions we will be using
-#import sip
+
 from PySide import QtGui, QtCore
 # import maya.OpenMayaUI as apiUI
 
