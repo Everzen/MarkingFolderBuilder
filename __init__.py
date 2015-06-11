@@ -9,38 +9,46 @@
 
 import sys
 from PySide import QtGui, QtCore
+import copy
 
-class Example(QtGui.QWidget):
+print sys.path
+#############################################################################################################
+import SVFX.system as SVFXS
+import SVFX.fileControl as SVFXF
+
+
+##Import Package Contents
+import myWidgets
+
+
+
+class MarkingFolderWindow(QtGui.QWidget):
     
     def __init__(self):
-        super(Example, self).__init__()
+        super(MarkingFolderWindow, self).__init__()
         
         self.initUI()
         
     def initUI(self):
 
 		QtGui.QToolTip.setFont(QtGui.QFont('SansSerif', 10))
+		# fileSystemModel = QtGui.QFileSystemModel(self.folderStructTw) # Not sure that tehse next two lines are necessary - #Test
+		# fileSystemModel.setReadOnly(False)
 
 		introLabel = QtGui.QLabel("USER LIST - Please select the users that you wish to generate folders for, using the selection filters on the right")
-		# introLabel.move(5,10)
 
-		# topLeftSplitter = QtGui.QFrame()
-		# topLeftSplitter.setFrameShape(QtGui.QFrame.StyledPanel)
+		userTVFrame = QtGui.QFrame(self) # Create frame and Layout to hold all the User List View
+		userTVFrame.setFrameShape(QtGui.QFrame.StyledPanel)
+		userTVLayout = QtGui.QVBoxLayout(userTVFrame)
 
-		# topRightSplitter = QtGui.QFrame()
-		# topRightSplitter.setFrameShape(QtGui.QFrame.StyledPanel)
- 
+		#################################################ADDING USER LIST - QTREEWIDGET#############################################
+		userListTw = QtGui.QListWidget()
+		userListTw.resize(900, 681)
 
-		userLV = QtGui.QListWidget()
-		userLV.resize(900, 681)
-		# userLV.move(5,30)
 
-		userlVFrame = QtGui.QFrame(self) # Create frame and Layout to hold all the User List View
-		userlVFrame.setFrameShape(QtGui.QFrame.StyledPanel)
-		userlVLayout = QtGui.QVBoxLayout(userlVFrame)
-
-		userlVLayout.addWidget(introLabel)
-		userlVLayout.addWidget(userLV)
+		################################################END OF USER LIST - QTREEWIDGET##############################################
+		userTVLayout.addWidget(introLabel)
+		userTVLayout.addWidget(userListTw)
 
 		vOptionSplitter = QtGui.QSplitter(QtCore.Qt.Vertical) #Create splitter for the right hand side options
 
@@ -125,7 +133,7 @@ class Example(QtGui.QWidget):
 
 
 		topHSplitter = QtGui.QSplitter(QtCore.Qt.Horizontal) #Create Top horizontal splitter to allow us to separate User List options from Side options
-		topHSplitter.addWidget(userlVFrame)
+		topHSplitter.addWidget(userTVFrame)
 		topHSplitter.addWidget(vOptionSplitter)
 
 		QtGui.QApplication.setStyle(QtGui.QStyleFactory.create('Cleanlooks'))
@@ -136,13 +144,13 @@ class Example(QtGui.QWidget):
 		self.setLayout(topHbox)   
 		
 		self.setGeometry(300, 300, 987, 757)
-		self.setWindowTitle('Tooltips')    
+		self.setWindowTitle('Marking Folder Builder')    
 		self.show()
         
 def main():
     
     app = QtGui.QApplication(sys.argv)
-    ex = Example()
+    ex = MarkingFolderWindow()
     sys.exit(app.exec_())
 
 
