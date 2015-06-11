@@ -42,12 +42,7 @@ class Example(QtGui.QWidget):
 		userlVLayout.addWidget(introLabel)
 		userlVLayout.addWidget(userLV)
 
-
-		# vOptionSplitter = QtGui.QSplitter(QtCore.Qt.Vertical)
-
-		vBoxOptionsFrame = QtGui.QFrame(self) #Create a Frame for all otions
-		vBoxOptionsFrame.setFrameShape(QtGui.QFrame.StyledPanel)
-		vBoxOptionsLayout = QtGui.QVBoxLayout(vBoxOptionsFrame) #Vertical layout to arrange all options down the Right Hand Side - No Frame
+		vOptionSplitter = QtGui.QSplitter(QtCore.Qt.Vertical) #Create splitter for the right hand side options
 
 		filtersFrame = QtGui.QFrame(self) #Create a Frame for the top Listview Filters
 		filtersFrame.setFrameShape(QtGui.QFrame.StyledPanel)
@@ -55,7 +50,6 @@ class Example(QtGui.QWidget):
 
 		filterLabel = QtGui.QLabel("Use Selection Filters") # Add top label to the filter layout
 		vboxFilterLayout.addWidget(filterLabel)
-		
 
 		hboxUserChoices = QtGui.QHBoxLayout() #Create little layout for 3 User Filter ListView Widgets
 		courseLV = QtGui.QListWidget()
@@ -71,8 +65,11 @@ class Example(QtGui.QWidget):
 		updateUserListBtn = QtGui.QPushButton("Update User List") #Create bottom push button to Update Filter List
 		vboxFilterLayout.addWidget(updateUserListBtn)
 
-		vBoxOptionsLayout.addWidget(filtersFrame) #Now the filters options are complete add them to the total vBoxOptionsLayout
+		vOptionSplitter.addWidget(filtersFrame)  #Now the filters options are complete add them to the options vertical splitter - Top section of side splitter options
 
+		lowerOptionsFrame = QtGui.QFrame(self) #Create a Frame for all the lower side options
+		lowerOptionsFrame.setFrameShape(QtGui.QFrame.NoFrame)	
+		lowerOptionsLayout = QtGui.QVBoxLayout(lowerOptionsFrame)
 
 		foldersFrame = QtGui.QFrame(self) #Create a Frame for all folder options
 		foldersFrame.setFrameShape(QtGui.QFrame.StyledPanel)
@@ -91,7 +88,7 @@ class Example(QtGui.QWidget):
 
 		vBoxFolderLayout.addLayout(hBoxFolders)
 		
-		vBoxOptionsLayout.addWidget(foldersFrame) #Now the folder options are complete add them to the total vBoxOptionsLayout
+		lowerOptionsLayout.addWidget(foldersFrame)  #Add folder frame to our side lower options frame
 
 		folderStructFrame = QtGui.QFrame(self) #Create a Frame for all folder structure options
 		folderStructFrame.setFrameShape(QtGui.QFrame.StyledPanel)
@@ -109,44 +106,35 @@ class Example(QtGui.QWidget):
 		clearFolderStructBtn = QtGui.QPushButton("Clear Folder Stucture")
 		vBoxFolderStructLayout.addWidget(clearFolderStructBtn)
 
-		vBoxOptionsLayout.addWidget(folderStructFrame) #Now the folder strcture options are complete add them to the total vBoxOptionsLayout
+		lowerOptionsLayout.addWidget(folderStructFrame) #Add folder structure frame to our side lower options frame 
 
 
 		folderCreateFrame = QtGui.QFrame(self) #Create a Frame for all final Folder Create
 		folderCreateFrame.setFrameShape(QtGui.QFrame.Panel)
 		folderCreateFrame.setLineWidth(3)
 		folderCreateFrame.setFrameShadow(QtGui.QFrame.Raised)
+		# folderCreateFrame.setFrameShape(QtGui.QFrame.NoFrame)
 		folderCreateLayout = QtGui.QVBoxLayout(folderCreateFrame)
 		
 		createFolderStructBtn = QtGui.QPushButton("CREATE MARKING FOLDERS")
 		folderCreateLayout.addWidget(createFolderStructBtn)
 
-		vBoxOptionsLayout.addWidget(folderCreateFrame) #Now the final Folder create button is complete add it to the total vBoxOptionsLayout
+		lowerOptionsLayout.addWidget(folderCreateFrame)  #Add folder create frame to our side lower options frame
+		
+		vOptionSplitter.addWidget(lowerOptionsFrame) #Now add this total side lower options frame to the main vertical side splitter
 
 
-		topHSplitter = QtGui.QSplitter(QtCore.Qt.Horizontal)
+		topHSplitter = QtGui.QSplitter(QtCore.Qt.Horizontal) #Create Top horizontal splitter to allow us to separate User List options from Side options
 		topHSplitter.addWidget(userlVFrame)
-		topHSplitter.addWidget(vBoxOptionsFrame)
-		# topHSplitter.addWidget(vOptionSplitter)
+		topHSplitter.addWidget(vOptionSplitter)
 
 		QtGui.QApplication.setStyle(QtGui.QStyleFactory.create('Cleanlooks'))
 		
-		topHbox = QtGui.QHBoxLayout()
+		topHbox = QtGui.QHBoxLayout() #Finish off with a top level Layout to hold the main splitter
 		topHbox.addWidget(topHSplitter)
-		# topHbox.addWidget(userlVFrame)
-		# topHbox.addLayout(vBoxOptionsLayout)
-		# topHbox.addStretch(1)
 
 		self.setLayout(topHbox)   
 		
-		# introLabel.resize(introLabel.sizeHint())
-		# self.setToolTip('This is a <b>QWidget</b> widget')
-
-		# btn = QtGui.QPushButton('Button', self)
-		# btn.setToolTip('This is a <b>QPushButton</b> widget')
-		# btn.resize(btn.sizeHint())
-		# btn.move(50, 50)       
-
 		self.setGeometry(300, 300, 987, 757)
 		self.setWindowTitle('Tooltips')    
 		self.show()
