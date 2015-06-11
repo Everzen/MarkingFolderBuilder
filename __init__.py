@@ -8,7 +8,7 @@
 ########################################################################################################################################
 
 import sys
-from PySide import QtGui
+from PySide import QtGui, QtCore
 
 class Example(QtGui.QWidget):
     
@@ -43,7 +43,11 @@ class Example(QtGui.QWidget):
 		userlVLayout.addWidget(userLV)
 
 
-		vBoxOptionsLayout = QtGui.QVBoxLayout() #Vertical layout to arrange all options down the Right Hand Side - No Frame
+		# vOptionSplitter = QtGui.QSplitter(QtCore.Qt.Vertical)
+
+		vBoxOptionsFrame = QtGui.QFrame(self) #Create a Frame for all otions
+		vBoxOptionsFrame.setFrameShape(QtGui.QFrame.StyledPanel)
+		vBoxOptionsLayout = QtGui.QVBoxLayout(vBoxOptionsFrame) #Vertical layout to arrange all options down the Right Hand Side - No Frame
 
 		filtersFrame = QtGui.QFrame(self) #Create a Frame for the top Listview Filters
 		filtersFrame.setFrameShape(QtGui.QFrame.StyledPanel)
@@ -109,7 +113,9 @@ class Example(QtGui.QWidget):
 
 
 		folderCreateFrame = QtGui.QFrame(self) #Create a Frame for all final Folder Create
-		folderCreateFrame.setFrameShape(QtGui.QFrame.StyledPanel)
+		folderCreateFrame.setFrameShape(QtGui.QFrame.Panel)
+		folderCreateFrame.setLineWidth(3)
+		folderCreateFrame.setFrameShadow(QtGui.QFrame.Raised)
 		folderCreateLayout = QtGui.QVBoxLayout(folderCreateFrame)
 		
 		createFolderStructBtn = QtGui.QPushButton("CREATE MARKING FOLDERS")
@@ -117,12 +123,22 @@ class Example(QtGui.QWidget):
 
 		vBoxOptionsLayout.addWidget(folderCreateFrame) #Now the final Folder create button is complete add it to the total vBoxOptionsLayout
 
+
+		topHSplitter = QtGui.QSplitter(QtCore.Qt.Horizontal)
+		topHSplitter.addWidget(userlVFrame)
+		topHSplitter.addWidget(vBoxOptionsFrame)
+		# topHSplitter.addWidget(vOptionSplitter)
+
+		QtGui.QApplication.setStyle(QtGui.QStyleFactory.create('Cleanlooks'))
+		
 		topHbox = QtGui.QHBoxLayout()
-		topHbox.addWidget(userlVFrame)
-		topHbox.addLayout(vBoxOptionsLayout)
-		topHbox.addStretch(1)
+		topHbox.addWidget(topHSplitter)
+		# topHbox.addWidget(userlVFrame)
+		# topHbox.addLayout(vBoxOptionsLayout)
+		# topHbox.addStretch(1)
 
 		self.setLayout(topHbox)   
+		
 		# introLabel.resize(introLabel.sizeHint())
 		# self.setToolTip('This is a <b>QWidget</b> widget')
 
