@@ -3,6 +3,7 @@
 ##Contact:   3dframework@gmail.com
 ##
 ##Tool: Marking Folder Builder
+##		- Tool to add folder structures that match up to students on a module
 ########################################################################################################################################
 
 import sys
