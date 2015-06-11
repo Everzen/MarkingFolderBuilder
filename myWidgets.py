@@ -6,7 +6,7 @@
 ##      - Tool to add folder structures that match up to students on a module
 ##      - Look to add XML data stripped straight from course sheets
 ##
-##      -Widgets: For subclassing Pyside Widgets
+##      -Widgets: For subclassing Pyside Widgets - TEST CODE
 ########################################################################################################################################
 
 
