@@ -42,13 +42,14 @@ class MarkingFolderWindow(QtGui.QWidget):
 		userTVLayout = QtGui.QVBoxLayout(userTVFrame)
 
 		#################################################ADDING USER LIST - QTREEWIDGET#############################################
-		userListTw = QtGui.QListWidget()
-		userListTw.resize(900, 681)
+		self.userListTw = QtGui.QTreeWidget()
+		self.userListTw.setHeaderLabels(["Surname","Forename","Login","Year","Course","Status"])
+		self.userListTw.setMinimumWidth(620)
 
 
 		################################################END OF USER LIST - QTREEWIDGET##############################################
 		userTVLayout.addWidget(introLabel)
-		userTVLayout.addWidget(userListTw)
+		userTVLayout.addWidget(self.userListTw)
 
 		vOptionSplitter = QtGui.QSplitter(QtCore.Qt.Vertical) #Create splitter for the right hand side options
 
@@ -143,7 +144,7 @@ class MarkingFolderWindow(QtGui.QWidget):
 
 		self.setLayout(topHbox)   
 		
-		self.setGeometry(300, 300, 987, 757)
+		self.setGeometry(300, 300, 1100, 757)
 		self.setWindowTitle('Marking Folder Builder')    
 		self.show()
         
