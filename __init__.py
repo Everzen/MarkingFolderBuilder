@@ -61,13 +61,40 @@ class MarkingFolderWindow(QtGui.QWidget):
 		vboxFilterLayout.addWidget(filterLabel)
 
 		hboxUserChoices = QtGui.QHBoxLayout() #Create little layout for 3 User Filter ListView Widgets
-		courseLV = QtGui.QListWidget()
-		yearLV = QtGui.QListWidget()
-		statusLV = QtGui.QListWidget()
+		
+		#################################################ADDING LV FILTERS#############################################
+		self.courseLw = QtGui.QListWidget()
+		self.courseLw.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
+		self.yearLw = QtGui.QListWidget()
+		self.yearLw.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
+		self.statusLw = QtGui.QListWidget()
+		self.statusLw.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
 
-		hboxUserChoices.addWidget(courseLV)
-		hboxUserChoices.addWidget(yearLV)
-		hboxUserChoices.addWidget(statusLV)
+		QtGui.QListWidgetItem("SFX", self.courseLw)
+		QtGui.QListWidgetItem("VFX", self.courseLw)
+		QtGui.QListWidgetItem("GAR", self.courseLw)
+		QtGui.QListWidgetItem("FPI", self.courseLw)
+
+		QtGui.QListWidgetItem("Year 1", self.yearLw)
+		QtGui.QListWidgetItem("Year 2", self.yearLw)
+		QtGui.QListWidgetItem("Year 3", self.yearLw)
+		QtGui.QListWidgetItem("Year 4", self.yearLw)
+
+		QtGui.QListWidgetItem("Student", self.statusLw)
+		QtGui.QListWidgetItem("Lecturer", self.statusLw)
+
+		#Select all options in Filters
+		# for index in xrange(self.courseLw.count()): self.courseLw.setItemSelected(self.courseLw.item(index),True)
+		# for index in xrange(self.yearLw.count()): self.yearLw.setItemSelected(self.yearLw.item(index),True)
+		# for index in xrange(self.statusLw.count()): self.statusLw.setItemSelected(self.statusLw.item(index),True)
+		for index in xrange(self.courseLw.count()): self.courseLw.item(index).setSelected(True)
+		for index in xrange(self.yearLw.count()): self.yearLw.item(index).setSelected(True)
+		for index in xrange(self.statusLw.count()): self.statusLw.item(index).setSelected(True)
+		################################################END OF LV FILTERS##############################################
+
+		hboxUserChoices.addWidget(self.courseLw)
+		hboxUserChoices.addWidget(self.yearLw)
+		hboxUserChoices.addWidget(self.statusLw)
 
 		vboxFilterLayout.addLayout(hboxUserChoices) 
 
