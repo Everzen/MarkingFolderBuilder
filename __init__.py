@@ -4,7 +4,7 @@
 ##
 ##Tool: Marking Folder Builder
 ##		- Tool to add folder structures that match up to students on a module
-##		- Look to add XML data stripped straight from course sheets - TEST CODE
+##		- Look to add XML data stripped straight from course sheets - TEST CODE - MORE TEST CODE
 ########################################################################################################################################
 
 import sys
