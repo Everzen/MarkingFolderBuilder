@@ -11,7 +11,6 @@ import sys
 from PySide import QtGui, QtCore
 import copy
 
-print sys.path
 #############################################################################################################
 import SVFX.system as SVFXS
 import SVFX.fileControl as SVFXF
@@ -24,12 +23,12 @@ import myWidgets
 
 class MarkingFolderWindow(QtGui.QWidget):
     
-    def __init__(self):
-        super(MarkingFolderWindow, self).__init__()
-        
-        self.initUI()
-        
-    def initUI(self):
+	def __init__(self):
+		super(MarkingFolderWindow, self).__init__()
+
+		self.initUI()
+	
+	def initUI(self):
 
 		QtGui.QToolTip.setFont(QtGui.QFont('SansSerif', 10))
 		# fileSystemModel = QtGui.QFileSystemModel(self.folderStructTw) # Not sure that tehse next two lines are necessary - #Test
@@ -133,8 +132,18 @@ class MarkingFolderWindow(QtGui.QWidget):
 		sampleFolderLbl = QtGui.QLabel("SAMPLE FOLDERS") #Create and add label for Sample Folder Table Widget to drag and drop folder names
 		vBoxFolderStructLayout.addWidget(sampleFolderLbl)
 
-		sampleFolderTabW = QtGui.QTableWidget() #Create and add Sample Folder Table Widget to drag and drop folder names
-		vBoxFolderStructLayout.addWidget(sampleFolderTabW)
+		#################################################ADDING Folder NAME - SUBCLASSED QTABLEWIDGET#############################################
+
+		self.sampleFolderTabW = myWidgets.FolderNamesTabW() #Create and add Sample Folder subclassed (myWidgets) Table Widget to drag and drop folder names
+		self.sampleFolderTabW.setRowCount(4)
+		self.sampleFolderTabW.setColumnCount(3)
+		self.sampleFolderTabW.horizontalHeader().setVisible(False)
+		self.sampleFolderTabW.verticalHeader().setVisible(False)
+		self.sampleFolderTabW.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
+		self.folderNamesList = ["Student_Name","Module_Name","Assignment_01", "Assignment_02", "Report", "Artefacts", "Animation", "Presentation", "Plan", "FinalImages", "Practical", "Assets"] # Data for Table Widget Folder Names
+		self.populateSampleFolderNameTabW() #Populate this table for folder name dragging
+
+		vBoxFolderStructLayout.addWidget(self.sampleFolderTabW)
 
 		folderStructTW = QtGui.QTreeWidget() #Create and add Folder Tree Widget to drag and drop folder structure
 		vBoxFolderStructLayout.addWidget(folderStructTW)
@@ -149,7 +158,6 @@ class MarkingFolderWindow(QtGui.QWidget):
 		folderCreateFrame.setFrameShape(QtGui.QFrame.Panel)
 		folderCreateFrame.setLineWidth(3)
 		folderCreateFrame.setFrameShadow(QtGui.QFrame.Raised)
-		# folderCreateFrame.setFrameShape(QtGui.QFrame.NoFrame)
 		folderCreateLayout = QtGui.QVBoxLayout(folderCreateFrame)
 		
 		createFolderStructBtn = QtGui.QPushButton("CREATE MARKING FOLDERS")
@@ -174,7 +182,21 @@ class MarkingFolderWindow(QtGui.QWidget):
 		self.setGeometry(300, 300, 1100, 757)
 		self.setWindowTitle('Marking Folder Builder')    
 		self.show()
-        
+
+	def populateSampleFolderNameTabW(self):
+		self.folderNameCounter = 0
+		for i in range(0,4):
+			for j in range(0,3):
+				if self.folderNameCounter < len(self.folderNamesList):
+					print "Item Created  " + self.folderNamesList[self.folderNameCounter]
+					item = QtGui.QTableWidgetItem(self.folderNamesList[self.folderNameCounter])
+					self.sampleFolderTabW.setItem(i,j,item)
+					self.folderNameCounter += 1
+					print str(i) + " " + str(j)
+
+
+
+
 def main():
     
     app = QtGui.QApplication(sys.argv)

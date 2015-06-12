@@ -68,6 +68,10 @@ class FolderNamesTabW(QtGui.QTableWidget):
 	"""Class to subclass QTableWidget to give us control over how we handle the data on a startDrag"""
 	def __init__(self, parent = None):
 		super(FolderNamesTabW, self).__init__(parent)
+        # self.setRowCount(4)
+        # self.setColumnCount(3)
+        # self.horizontalHeader().setVisible(False)
+        # self.verticalHeader().setVisible(False)
 
 	def startDrag(self, dropAction):
 		mime = QtCore.QMimeData()
