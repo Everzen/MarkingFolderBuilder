@@ -13,14 +13,47 @@
 from PySide import QtGui, QtCore
 # import maya.OpenMayaUI as apiUI
 
+import moduleInfo
 
-class UserTreeWidgetItem(QtGui.QTreeWidgetItem):
-    def __init__(self, lWUser, parent = None):
-        self.user = lWUser
-    	QtGui.QTreeWidgetItem.__init__(self,[lWUser.getSurname(),lWUser.getForename(),lWUser.getID(),lWUser.getYear(),lWUser.getCourse(), lWUser.getStatus()])
 
-    def getUser(self):
-    	return self.user
+class StudentTreeWidgetItem(QtGui.QTreeWidgetItem):
+    def __init__(self, student, headers, parent = None):
+        self.student = student
+        self.headers = headers
+        self.itemInfo = []
+
+        self.buildItem() #Collect the correct student information into the itemInfo
+    	QtGui.QTreeWidgetItem.__init__(self,self.itemInfo)
+
+    def buildItem(self):
+        """A function that loops through all the header titles and matches them to the dictionary entries for the student data"""
+        self.itemInfo = []
+        for h in self.headers:
+            self.itemInfo.append(self.student[h])
+
+    def getStudent(self):
+    	return self.student
+
+
+class StudentTreeWidget(QtGui.QTreeWidget):
+    def __init__(self, parent = None):
+        super(StudentTreeWidget, self).__init__(parent)
+        moduleData = moduleInfo.moduleData("SFX5000_Report.xlsx")
+        self.studentList = moduleData.getStudentList()
+        self.studentInfoHeaders = ["Bolton ID","Surname","Forename","Disability","Status Code","Email"]
+        self.setHeaderLabels(self.studentInfoHeaders)
+
+        self.populateStudentList() #For intial testing populate the list, but this will be replaced by the drag and drop functionality
+
+    def populateStudentList(self):
+        """Function to populate the user treewidget with the names of students with the appropriate selection filters."""
+        self.clear()
+
+        for s in self.studentList:
+            item = StudentTreeWidgetItem(s, self.studentInfoHeaders)
+            self.addTopLevelItem(item)   
+
+
 
 
 class FolderStrucTW(QtGui.QTreeWidget):

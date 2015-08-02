@@ -6,12 +6,6 @@ import SVFX.system as SVFXS
 
 class moduleData():
 	"""A class to strip all of the data out of an excel document containing module student groups"""
-	#Data
-
-
-
-
-	#Methods
 	def __init__(self, xlsxFile):
 		"""function to initialise class with correct file data"""
 		self.xlsxFile = xlsxFile
@@ -37,13 +31,13 @@ class moduleData():
 		print "Doc Rows " + str(self.worksheet.nrows)
 
 		self.getModuleTitleInfo()
-		self.getUserInfo()
+		self.getStudentInfo()
 
 	def getModuleTitleInfo(self):
 		"""Function to strip the main module data out of the module xlsx file"""
 		pass
 
-	def getUserInfo(self):
+	def getStudentInfo(self):
 		"""Function that searches out the student block of data in the xlsx file and populates some student info"""
 		self.studentList = [] #Clear teh student list
 		#First of all scane for the Start row and the title Row for the student data
@@ -52,7 +46,7 @@ class moduleData():
 			print "Checked cell value is " + cellVal
 			if cellVal == "Bolton ID":
 				self.titleInfoRow = r 
-				self.studentStartRow = r 
+				self.studentStartRow = r + 1
 
 		#Now scen for the last row of student data by looking for the next empty line
 		r = self.studentStartRow
@@ -81,8 +75,16 @@ class moduleData():
 		print "User List is: " + str(self.studentList)
 
 
+	def getStudentList(self):
+		return self.studentList
+
+	def getStudentInfoHeaders(self):
+		return self.studentInfoHeaders
+
+
+
+
 
 
 ##PRACTICE EXECUTION
-module = moduleData("SFX5000_Report.xlsx")
-module.getUserInfo()
+#module = moduleData("SFX5000_Report.xlsx")
