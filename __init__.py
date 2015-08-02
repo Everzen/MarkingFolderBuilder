@@ -41,7 +41,7 @@ class MarkingFolderWindow(QtGui.QWidget):
 		userTVLayout = QtGui.QVBoxLayout(userTVFrame)
 
 		#################################################ADDING USER LIST - QTREEWIDGET#############################################
-		self.userListTw = QtGui.QTreeWidget()
+		self.userListTw =  QtGui.QTreeWidget() #This tree is to be replaced by the custom tree to handle student data and drag and drop
 		self.userListTw.setHeaderLabels(["Surname","Forename","Login","Year","Course","Status"])
 		self.userListTw.setMinimumWidth(620)
 
