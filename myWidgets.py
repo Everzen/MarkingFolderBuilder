@@ -28,8 +28,9 @@ class StudentTreeWidgetItem(QtGui.QTreeWidgetItem):
     def buildItem(self):
         """A function that loops through all the header titles and matches them to the dictionary entries for the student data"""
         self.itemInfo = []
-        for h in self.headers:
-            self.itemInfo.append(self.student[h])
+        for key in self.headers.keys():
+            if self.headers[key]:
+                self.itemInfo.append(self.student[key])
 
     def getStudent(self):
     	return self.student
@@ -40,15 +41,26 @@ class StudentTreeWidget(QtGui.QTreeWidget):
         super(StudentTreeWidget, self).__init__(parent)
         moduleData = moduleInfo.moduleData("SFX5000_Report.xlsx")
         self.studentList = moduleData.getStudentList()
-        self.studentInfoHeaders = ["Bolton ID","Surname","Forename","Disability","Status Code","Email"]
-        self.setHeaderLabels(self.studentInfoHeaders)
+        
+        self.studentInfoCategories = {"Bolton ID":True, "Surname": True, "Forename": True, "Network ID":False , "Disability": True, "Status Code": True,"Email":True, "Occurence":True, "Course Code":False, "Course Name":False, "Personal Tutor":False, "Personal Tutor Email":False}
+        self.studentInfoHeaders = []
+
+        self.buildHeaders()
 
         self.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-        self.customContextMenuRequested.connect(self.folderStructVPopup)
+        self.customContextMenuRequested.connect(self.rCPopup)
 
         self.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
 
         self.populateStudentList() #For intial testing populate the list, but this will be replaced by the drag and drop functionality
+
+
+    def buildHeaders(self):
+        self.studentInfoHeaders = []
+        for key in self.studentInfoCategories.keys():
+            if self.studentInfoCategories[key]:
+                self.studentInfoHeaders.append(key)
+        self.setHeaderLabels(self.studentInfoHeaders)
 
 
     def populateStudentList(self):
@@ -56,11 +68,11 @@ class StudentTreeWidget(QtGui.QTreeWidget):
         self.clear()
 
         for s in self.studentList:
-            item = StudentTreeWidgetItem(s, self.studentInfoHeaders)
+            item = StudentTreeWidgetItem(s, self.studentInfoCategories)
             self.addTopLevelItem(item)   
 
 
-    def folderStructVPopup(self, pos):
+    def rCPopup(self, pos):
         menu = QtGui.QMenu()
         rename = menu.addAction("Rename")
         delFolder = menu.addAction("Delete")
