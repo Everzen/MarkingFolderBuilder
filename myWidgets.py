@@ -43,7 +43,13 @@ class StudentTreeWidget(QtGui.QTreeWidget):
         self.studentInfoHeaders = ["Bolton ID","Surname","Forename","Disability","Status Code","Email"]
         self.setHeaderLabels(self.studentInfoHeaders)
 
+        self.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.folderStructVPopup)
+
+        self.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
+
         self.populateStudentList() #For intial testing populate the list, but this will be replaced by the drag and drop functionality
+
 
     def populateStudentList(self):
         """Function to populate the user treewidget with the names of students with the appropriate selection filters."""
@@ -53,6 +59,18 @@ class StudentTreeWidget(QtGui.QTreeWidget):
             item = StudentTreeWidgetItem(s, self.studentInfoHeaders)
             self.addTopLevelItem(item)   
 
+
+    def folderStructVPopup(self, pos):
+        menu = QtGui.QMenu()
+        rename = menu.addAction("Rename")
+        delFolder = menu.addAction("Delete")
+        action = menu.exec_(self.mapToGlobal(QtCore.QPoint(pos.x(),pos.y()+20)))
+        if action == rename:
+            print "RENAME"
+            #self.renameFolderStructTwItem()
+        elif action == delFolder:
+            print "DELETE FOLDER"
+            #self.delFolderTwItem()
 
 
 

@@ -1,5 +1,6 @@
 import xlrd #For reading Excel Files
 import xlsxwriter #For Writing Excel Files
+from operator import itemgetter #Used to automatically sort a dictionary by a key value!
 
 import SVFX.system as SVFXS 
 
@@ -71,6 +72,8 @@ class moduleData():
 				cat = self.worksheet.cell_value(self.titleInfoRow,c) #USe titleRow to create the category name
 				student[cat] = self.worksheet.cell_value(r,c)
 			self.studentList.append(student)
+
+		self.studentList = sorted(self.studentList, key=itemgetter('Surname')) #Sort the users into surname alphabetical order
 
 		print "User List is: " + str(self.studentList)
 
