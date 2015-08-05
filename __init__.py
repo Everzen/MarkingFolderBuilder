@@ -42,7 +42,7 @@ class MarkingFolderWindow(QtGui.QWidget):
 
 		#################################################ADDING USER LIST - QTREEWIDGET#############################################
 		self.userListTw =  myWidgets.StudentTreeWidget() #This tree is to be replaced by the custom tree to handle student data and drag and drop
-		self.userListTw.setMinimumWidth(620)
+		self.userListTw.setMinimumWidth(670)
 
 
 		################################################END OF USER LIST - QTREEWIDGET##############################################

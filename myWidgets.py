@@ -11,6 +11,7 @@
 
 
 from PySide import QtGui, QtCore
+from collections import OrderedDict
 # import maya.OpenMayaUI as apiUI
 
 import moduleInfo
@@ -31,6 +32,8 @@ class StudentTreeWidgetItem(QtGui.QTreeWidgetItem):
         for key in self.headers.keys():
             if self.headers[key]:
                 self.itemInfo.append(self.student[key])
+        for col, val in self.headers.items(): print col
+
 
     def getStudent(self):
     	return self.student
@@ -42,8 +45,13 @@ class StudentTreeWidget(QtGui.QTreeWidget):
         moduleData = moduleInfo.moduleData("SFX5000_Report.xlsx")
         self.studentList = moduleData.getStudentList()
         
-        self.studentInfoCategories = {"Bolton ID":True, "Surname": True, "Forename": True, "Network ID":False , "Disability": True, "Status Code": True,"Email":True, "Occurence":True, "Course Code":False, "Course Name":False, "Personal Tutor":False, "Personal Tutor Email":False}
-        self.studentInfoHeaders = []
+        
+        self.studentInfoCategories = OrderedDict([("Bolton ID",True), ("Surname", True), ("Forename", True), ("Network ID",False),
+                                                   ("Disability", True), ("Status Code", True),("Email",True), ("Occurence",True), 
+                                                   ("Course Code",False), ("Course Name",False), ("Personal Tutor",False), ("Personal Tutor Email",False)])
+        self.studentInfoCategoryWidths = []
+        #self.studentInfoCatOrder = ["Bolton ID", "Surname", "Forename", "Network ID", "Disability", "Status Code","Email", "Occurence", "Course Code", "Course Name", "Personal Tutor", "Personal Tutor Email"]
+        #self.studentInfoHeaders = []
 
         self.buildHeaders()
 
